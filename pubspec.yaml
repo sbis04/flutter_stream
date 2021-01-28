@@ -30,7 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   dio: ^3.0.10
   web_socket_channel: ^1.2.0
-  video_player: ^0.10.11+1
+  video_player: ^1.0.1
 
 dev_dependencies:
   flutter_test:
