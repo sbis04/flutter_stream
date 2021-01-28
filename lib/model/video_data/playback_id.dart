@@ -15,12 +15,12 @@ class PlaybackId {
   String toRawJson() => json.encode(toJson());
 
   factory PlaybackId.fromJson(Map<String, dynamic> json) => PlaybackId(
-        policy: json["policy"],
-        id: json["id"],
+        policy: json["policy"] == null ? null : json["policy"],
+        id: json["id"] == null ? null : json["id"],
       );
 
   Map<String, dynamic> toJson() => {
-        "policy": policy,
-        "id": id,
+        "policy": policy == null ? null : policy,
+        "id": id == null ? null : id,
       };
 }
