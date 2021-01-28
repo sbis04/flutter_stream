@@ -22,11 +22,24 @@ class _HomePageState extends State<HomePage> {
             child: Text('post video'),
             onPressed: () async {
               _muxClient.initializeDio();
+              // await _muxClient.storeVideo();
+
               VideoData videoData = await _muxClient.storeVideo();
 
-              print('VIDEO ID: ${videoData.data.id}');
+              print(
+                  'VIDEO ID: ${videoData.data.id}\nStatus: ${videoData.data.status}\nPlaybackIDs: ${videoData.data.playbackIds[0].id}');
             },
-          )
+          ),
+          // StreamBuilder(
+          //   stream: _muxClient.channel.stream,
+          //   builder: (context, snapshot) {
+          //     if (snapshot.hasData) {
+          //       print(snapshot.data);
+          //       return Container();
+          //     }
+          //     return Container();
+          //   },
+          // )
         ],
       ),
     );
