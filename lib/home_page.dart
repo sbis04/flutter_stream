@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_stream/model/video_data.dart';
 import 'package:flutter_stream/utils/mux_client.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,17 +12,23 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        RaisedButton(
-          child: Text('post video'),
-          onPressed: () async {
-            // _muxClient.initializeDio();
-            await _muxClient.storeVideo();
-          },
-        )
-      ],
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(),
+          RaisedButton(
+            child: Text('post video'),
+            onPressed: () async {
+              _muxClient.initializeDio();
+              VideoData videoData = await _muxClient.storeVideo();
+
+              print('VIDEO ID: ${videoData.data.id}');
+            },
+          )
+        ],
+      ),
     );
   }
 }
