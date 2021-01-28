@@ -1,29 +1,16 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_stream/model/video_data.dart';
 import 'package:flutter_stream/res/string.dart';
 import 'package:flutter_stream/secrets.dart';
 
 class MUXClient {
-  // initializeDio() {
-  //   BaseOptions options = BaseOptions(
-  //     baseUrl: muxBaseUrl, // https://api.mux.com
-  //     connectTimeout: 5000,
-  //     receiveTimeout: 3000,
-  //     headers: {
-  //       "Content-Type": contentType, // application/json
-  //       "Authorization": 'Basic $authToken', // in the format {MUX_TOKEN_ID}:{MUX_TOKEN_SECRET}
-  //     },
-  //   );
+  Dio _dio = Dio();
 
-  //   _dio = Dio(options);
-  // }
-
-  storeVideo() async {
-    Dio dio = Dio();
-
+  initializeDio() {
+    // authToken format: {MUX_TOKEN_ID}:{MUX_TOKEN_SECRET}
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('$authToken'));
-    print(basicAuth);
 
     BaseOptions options = BaseOptions(
       baseUrl: muxBaseUrl, // https://api.mux.com
@@ -31,29 +18,31 @@ class MUXClient {
       receiveTimeout: 3000,
       headers: {
         "Content-Type": contentType, // application/json
-        "authorization":
-            basicAuth, // in the format "Basic encoded({MUX_TOKEN_ID}:{MUX_TOKEN_SECRET})"
+        "authorization": basicAuth,
       },
     );
-    dio = Dio(options);
+    _dio = Dio(options);
+  }
 
+  storeVideo() async {
     try {
-      Response response = await dio.post(
+      Response response = await _dio.post(
         "/video/v1/assets",
         data: {
           "input": demoVideoUrl,
-          "playback_policy": 'public',
+          "playback_policy": playbackPolicy,
         },
       );
 
-      print(response.statusCode);
-      print(response.data);
+      if (response.statusCode == 201) {
+        VideoData videoData = VideoData.fromJson(response.data);
 
-      // if (response.statusCode == 200) {
-      //   print(response.data);
-      // }
+        return videoData;
+      }
     } catch (e) {
       print('Error starting build: $e');
     }
+
+    return null;
   }
 }
