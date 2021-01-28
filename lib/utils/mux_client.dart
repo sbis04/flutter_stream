@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_stream/model/asset_data.dart';
 import 'package:flutter_stream/model/video_data.dart';
 import 'package:flutter_stream/res/string.dart';
 // import 'package:web_socket_channel/io.dart';
@@ -75,7 +76,7 @@ class MUXClient {
         "/video/v1/assets/$videoId",
       );
 
-      // print(response.data);
+      print(response.data);
 
       if (response.statusCode == 200) {
         VideoData videoData = VideoData.fromJson(response.data);
@@ -88,6 +89,28 @@ class MUXClient {
 
     return null;
   }
+
+  getAssetList() async {
+    try {
+      Response response = await _dio.get(
+        "/video/v1/assets",
+      );
+
+      print(response.data);
+
+      if (response.statusCode == 200) {
+        AssetData assetData = AssetData.fromJson(response.data);
+
+        return assetData;
+      }
+    } catch (e) {
+      print('Error starting build: $e');
+    }
+
+    return null;
+  }
+
+  // TODO: GET thumbnail
 
   // Future<Stream<dynamic>> _positionsStream(
   //     {String serverUrl,
