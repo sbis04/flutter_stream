@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stream/model/asset_data.dart';
 import 'package:flutter_stream/model/video_data.dart';
 import 'package:flutter_stream/res/custom_colors.dart';
+import 'package:flutter_stream/screens/preview_page.dart';
 import 'package:flutter_stream/utils/mux_client.dart';
 import 'package:intl/intl.dart';
 import 'package:video_player/video_player.dart';
 
+import '../res/string.dart';
+import '../res/string.dart';
 import '../res/string.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,7 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   MUXClient _muxClient = MUXClient();
-  VideoPlayerController _controller;
+  // VideoPlayerController _controller;
 
   TextEditingController _textControllerVideoURL;
   FocusNode _textFocusNodeVideoURL;
@@ -211,7 +214,6 @@ class _HomePageState extends State<HomePage> {
 
                     return ListView.separated(
                       itemCount: length,
-                      // shrinkWrap: true,
                       itemBuilder: (context, index) {
                         DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(
                             int.parse(assetData.data[index].createdAt) * 1000);
@@ -226,7 +228,7 @@ class _HomePageState extends State<HomePage> {
                             : null;
 
                         String thumbnailURL = isReady
-                            ? 'https://image.mux.com/$playbackId/thumbnail.jpg?time=5&width=200'
+                            ? '$muxImageBaseUrl/$playbackId/$imageTypeSize'
                             : null;
 
                         return Padding(
@@ -235,179 +237,194 @@ class _HomePageState extends State<HomePage> {
                             right: 16.0,
                             top: 8.0,
                           ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: CustomColors.muxGray.withOpacity(0.1),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(5.0),
-                              ),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  width: double.maxFinite,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        CustomColors.muxGray.withOpacity(0.8),
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(5.0),
-                                      topRight: Radius.circular(5.0),
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                      left: 8.0,
-                                      top: 8.0,
-                                      bottom: 8.0,
-                                    ),
-                                    child: RichText(
-                                      maxLines: 1,
-                                      softWrap: false,
-                                      overflow: TextOverflow.fade,
-                                      text: TextSpan(
-                                        text: 'ID: ',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16.0,
-                                        ),
-                                        children: [
-                                          TextSpan(
-                                            text: assetData.data[0].id,
-                                            style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.white70,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => PreviewPage(
+                                    assetData: assetData.data[index],
                                   ),
                                 ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Flexible(
-                                    //   child: AspectRatio(
-                                    //     aspectRatio: 16 / 9,
-                                    //     child: Container(
-                                    //       width: 200,
-                                    //       // height: 110,
-                                    //       color: Colors.black87,
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                    isReady
-                                        ? Image.network(
-                                            thumbnailURL,
-                                            cacheWidth: 200,
-                                            cacheHeight: 110,
-                                          )
-                                        : Flexible(
-                                            child: AspectRatio(
-                                              aspectRatio: 16 / 9,
-                                              child: Container(
-                                                width: 200,
-                                                // height: 110,
-                                                color: Colors.black87,
-                                              ),
-                                            ),
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: CustomColors.muxGray.withOpacity(0.1),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5.0),
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: double.maxFinite,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          CustomColors.muxGray.withOpacity(0.8),
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(5.0),
+                                        topRight: Radius.circular(5.0),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                        left: 8.0,
+                                        top: 8.0,
+                                        bottom: 8.0,
+                                      ),
+                                      child: RichText(
+                                        maxLines: 1,
+                                        softWrap: false,
+                                        overflow: TextOverflow.fade,
+                                        text: TextSpan(
+                                          text: 'ID: ',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16.0,
                                           ),
-                                    Flexible(
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                          left: 8.0,
-                                          top: 8.0,
-                                        ),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
                                           children: [
-                                            RichText(
-                                              maxLines: 1,
-                                              softWrap: false,
-                                              overflow: TextOverflow.fade,
-                                              text: TextSpan(
-                                                text: 'Duration: ',
-                                                style: TextStyle(
-                                                  color: CustomColors.muxGray,
-                                                  fontSize: 14.0,
-                                                ),
-                                                children: [
-                                                  TextSpan(
-                                                    text: assetData.data[index]
-                                                                .duration ==
-                                                            null
-                                                        ? 'N/A'
-                                                        : assetData.data[index]
-                                                            .duration
-                                                            .toStringAsFixed(2),
-                                                    style: TextStyle(
-                                                      // fontSize: 12.0,
-                                                      color: CustomColors
-                                                          .muxGray
-                                                          .withOpacity(0.6),
-                                                    ),
-                                                  )
-                                                ],
+                                            TextSpan(
+                                              text: assetData.data[0].id,
+                                              style: TextStyle(
+                                                fontSize: 12.0,
+                                                color: Colors.white70,
                                               ),
-                                            ),
-                                            SizedBox(height: 4.0),
-                                            RichText(
-                                              maxLines: 1,
-                                              softWrap: false,
-                                              overflow: TextOverflow.fade,
-                                              text: TextSpan(
-                                                text: 'Status: ',
-                                                style: TextStyle(
-                                                  color: CustomColors.muxGray,
-                                                  fontSize: 14.0,
-                                                ),
-                                                children: [
-                                                  TextSpan(
-                                                    text: assetData
-                                                        .data[index].status,
-                                                    style: TextStyle(
-                                                      // fontSize: 12.0,
-                                                      color: CustomColors
-                                                          .muxGray
-                                                          .withOpacity(0.6),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(height: 4.0),
-                                            RichText(
-                                              maxLines: 2,
-                                              overflow: TextOverflow.fade,
-                                              text: TextSpan(
-                                                text: 'Created at: ',
-                                                style: TextStyle(
-                                                  color: CustomColors.muxGray,
-                                                  fontSize: 14.0,
-                                                ),
-                                                children: [
-                                                  TextSpan(
-                                                    text: '\n$dateTimeString',
-                                                    style: TextStyle(
-                                                      // fontSize: 12.0,
-                                                      color: CustomColors
-                                                          .muxGray
-                                                          .withOpacity(0.6),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
+                                            )
                                           ],
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ],
+                                  ),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      // Flexible(
+                                      //   child: AspectRatio(
+                                      //     aspectRatio: 16 / 9,
+                                      //     child: Container(
+                                      //       width: 200,
+                                      //       // height: 110,
+                                      //       color: Colors.black87,
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      isReady
+                                          ? Image.network(
+                                              thumbnailURL,
+                                              cacheWidth: 200,
+                                              cacheHeight: 110,
+                                            )
+                                          : Flexible(
+                                              child: AspectRatio(
+                                                aspectRatio: 16 / 9,
+                                                child: Container(
+                                                  width: 200,
+                                                  // height: 110,
+                                                  color: Colors.black87,
+                                                ),
+                                              ),
+                                            ),
+                                      Flexible(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                            left: 8.0,
+                                            top: 8.0,
+                                          ),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              RichText(
+                                                maxLines: 1,
+                                                softWrap: false,
+                                                overflow: TextOverflow.fade,
+                                                text: TextSpan(
+                                                  text: 'Duration: ',
+                                                  style: TextStyle(
+                                                    color: CustomColors.muxGray,
+                                                    fontSize: 14.0,
+                                                  ),
+                                                  children: [
+                                                    TextSpan(
+                                                      text: assetData
+                                                                  .data[index]
+                                                                  .duration ==
+                                                              null
+                                                          ? 'N/A'
+                                                          : assetData
+                                                              .data[index]
+                                                              .duration
+                                                              .toStringAsFixed(
+                                                                  2),
+                                                      style: TextStyle(
+                                                        // fontSize: 12.0,
+                                                        color: CustomColors
+                                                            .muxGray
+                                                            .withOpacity(0.6),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(height: 4.0),
+                                              RichText(
+                                                maxLines: 1,
+                                                softWrap: false,
+                                                overflow: TextOverflow.fade,
+                                                text: TextSpan(
+                                                  text: 'Status: ',
+                                                  style: TextStyle(
+                                                    color: CustomColors.muxGray,
+                                                    fontSize: 14.0,
+                                                  ),
+                                                  children: [
+                                                    TextSpan(
+                                                      text: assetData
+                                                          .data[index].status,
+                                                      style: TextStyle(
+                                                        // fontSize: 12.0,
+                                                        color: CustomColors
+                                                            .muxGray
+                                                            .withOpacity(0.6),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(height: 4.0),
+                                              RichText(
+                                                maxLines: 2,
+                                                overflow: TextOverflow.fade,
+                                                text: TextSpan(
+                                                  text: 'Created at: ',
+                                                  style: TextStyle(
+                                                    color: CustomColors.muxGray,
+                                                    fontSize: 14.0,
+                                                  ),
+                                                  children: [
+                                                    TextSpan(
+                                                      text: '\n$dateTimeString',
+                                                      style: TextStyle(
+                                                        // fontSize: 12.0,
+                                                        color: CustomColors
+                                                            .muxGray
+                                                            .withOpacity(0.6),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );
