@@ -8,7 +8,6 @@ import 'package:flutter_stream/res/string.dart';
 // import 'package:web_socket_channel/status.dart' as status;
 
 import '../res/string.dart';
-import '../res/string.dart';
 
 class MUXClient {
   Dio _dio = Dio();
@@ -23,8 +22,8 @@ class MUXClient {
 
     BaseOptions options = BaseOptions(
       baseUrl: muxBaseUrl, // https://api.mux.com
-      connectTimeout: 5000,
-      receiveTimeout: 3000,
+      connectTimeout: 8000,
+      receiveTimeout: 5000,
       headers: {
         "Content-Type": contentType, // application/json
         "authorization": basicAuth,
@@ -90,7 +89,7 @@ class MUXClient {
     return null;
   }
 
-  getAssetList() async {
+  Future<AssetData> getAssetList() async {
     try {
       Response response = await _dio.get(
         "/video/v1/assets",
@@ -111,6 +110,7 @@ class MUXClient {
   }
 
   // TODO: GET thumbnail
+  getThumbnail() async {}
 
   // Future<Stream<dynamic>> _positionsStream(
   //     {String serverUrl,
