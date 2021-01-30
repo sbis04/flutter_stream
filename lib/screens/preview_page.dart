@@ -50,6 +50,7 @@ class _PreviewPageState extends State<PreviewPage> {
         backgroundColor: CustomColors.muxPink,
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,

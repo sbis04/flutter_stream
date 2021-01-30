@@ -213,6 +213,7 @@ class _HomePageState extends State<HomePage> {
                     int length = assetData.data.length;
 
                     return ListView.separated(
+                      physics: BouncingScrollPhysics(),
                       itemCount: length,
                       itemBuilder: (context, index) {
                         DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(
