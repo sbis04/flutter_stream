@@ -4,18 +4,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter_stream/model/asset_data.dart';
 import 'package:flutter_stream/model/video_data.dart';
 import 'package:flutter_stream/res/string.dart';
-// import 'package:web_socket_channel/io.dart';
-// import 'package:web_socket_channel/status.dart' as status;
 
 import '../res/string.dart';
 
 class MUXClient {
   Dio _dio = Dio();
 
-  // String _cookie;
-  // var channel = IOWebSocketChannel.connect(Uri.parse(
-  //     'ws://@$muxBaseUrl/video/v1/assets/Nh3DrtRN4j01T1cwmMdArqgUkYqJxdg402Au4qwL00idi00'));
-
+  /// Method for configuring Dio, and passing the proper token
+  /// for authorization
   initializeDio() {
     // authToken format: {MUX_TOKEN_ID}:{MUX_TOKEN_SECRET}
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('$authToken'));
@@ -32,14 +28,17 @@ class MUXClient {
     _dio = Dio(options);
   }
 
-  storeVideo() async {
+  /// Method for storing a video to MUX, by passing the [videoUrl].
+  ///
+  /// Returns the `VideoData`.
+  storeVideo({String videoUrl}) async {
     Response response;
 
     try {
       response = await _dio.post(
         "/video/v1/assets",
         data: {
-          "input": demoVideoUrl,
+          "input": videoUrl,
           "playback_policy": playbackPolicy,
         },
       );
@@ -69,6 +68,9 @@ class MUXClient {
     return null;
   }
 
+  /// Method for tracking the status of video storage on MUX.
+  ///
+  /// Returns the `VideoData`.
   Future<VideoData> checkPostStatus({String videoId}) async {
     try {
       Response response = await _dio.get(
@@ -89,6 +91,9 @@ class MUXClient {
     return null;
   }
 
+  /// Method for retrieving the entire asset list.
+  ///
+  /// Returns the `AssetData`.
   Future<AssetData> getAssetList() async {
     try {
       Response response = await _dio.get(
@@ -108,20 +113,4 @@ class MUXClient {
 
     return null;
   }
-
-  // TODO: GET thumbnail
-  getThumbnail() async {}
-
-  // Future<Stream<dynamic>> _positionsStream(
-  //     {String serverUrl,
-  //     String email,
-  //     String password,
-  //     String protocol = "http"}) async {
-  //   if (_cookie == null) {
-  //     await _getConnection(email: _email, password: _password);
-  //   }
-  //   final channel = IOWebSocketChannel.connect("ws://$serverUrl/api/socket",
-  //       headers: <String, dynamic>{"Cookie": _cookie});
-  //   return channel.stream;
-  // }
 }
