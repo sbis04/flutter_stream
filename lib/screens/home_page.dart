@@ -27,13 +27,6 @@ class _HomePageState extends State<HomePage> {
     _muxClient.initializeDio();
     _textControllerVideoURL = TextEditingController(text: demoVideoUrl);
     _textFocusNodeVideoURL = FocusNode();
-    // _controller = VideoPlayerController.network(
-    //     'https://stream.mux.com/rs015pF71Llnoyn02XiN9VdzIF2Zeuj5YkQp2ygYZYsFc.m3u8')
-    //   ..initialize().then((_) {
-    //     // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-    //     setState(() {});
-    //   });
-    // _controller.play();
   }
 
   @override
@@ -92,14 +85,6 @@ class _HomePageState extends State<HomePage> {
                       controller: _textControllerVideoURL,
                       cursorColor: CustomColors.muxPinkLight,
                       autofocus: false,
-                      // onTap: () {
-                      //   setState(() {});
-                      // },
-                      // onChanged: (value) {
-                      //   setState(() {
-                      //     _isEditingFirstName = true;
-                      //   });
-                      // },
                       onSubmitted: (value) {
                         _textFocusNodeVideoURL.unfocus();
                       },
@@ -128,13 +113,6 @@ class _HomePageState extends State<HomePage> {
                           fontSize: 12.0,
                           letterSpacing: 2,
                         ),
-                        // errorText: _isEditingApiKey
-                        //     ? _validateString(_textControllerApiKey.text)
-                        //     : null,
-                        // errorStyle: TextStyle(
-                        //   fontSize: 12,
-                        //   color: Colors.redAccent,
-                        // ),
                       ),
                     ),
                     isProcessing
@@ -299,16 +277,6 @@ class _HomePageState extends State<HomePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      // Flexible(
-                                      //   child: AspectRatio(
-                                      //     aspectRatio: 16 / 9,
-                                      //     child: Container(
-                                      //       width: 200,
-                                      //       // height: 110,
-                                      //       color: Colors.black87,
-                                      //     ),
-                                      //   ),
-                                      // ),
                                       isReady
                                           ? Image.network(
                                               thumbnailURL,
@@ -444,27 +412,6 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
-            // RaisedButton(
-            //   child: Text('post video'),
-            //   onPressed: () async {
-            //     _muxClient.initializeDio();
-            //     // await _muxClient.storeVideo();
-
-            //     VideoData videoData = await _muxClient.storeVideo();
-
-            //     print(
-            //         'VIDEO ID: ${videoData.data.id}\nStatus: ${videoData.data.status}\nPlaybackIDs: ${videoData.data.playbackIds[0].id}');
-            //   },
-            // ),
-
-            // Center(
-            //   child: _controller.value.initialized
-            //       ? AspectRatio(
-            //           aspectRatio: _controller.value.aspectRatio,
-            //           child: VideoPlayer(_controller),
-            //         )
-            //       : Container(),
-            // ),
           ],
         ),
       ),
