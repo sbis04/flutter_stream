@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_stream/model/asset_data/datum.dart';
+import 'package:flutter_stream/model/common/data.dart';
+
 import 'package:flutter_stream/res/custom_colors.dart';
 import 'package:intl/intl.dart';
 import 'package:video_player/video_player.dart';
@@ -7,7 +8,7 @@ import 'package:video_player/video_player.dart';
 import '../res/string.dart';
 
 class PreviewPage extends StatefulWidget {
-  final Datum assetData;
+  final Data assetData;
 
   const PreviewPage({@required this.assetData});
 
@@ -17,7 +18,7 @@ class PreviewPage extends StatefulWidget {
 
 class _PreviewPageState extends State<PreviewPage> {
   VideoPlayerController _controller;
-  Datum assetData;
+  Data assetData;
   String dateTimeString;
 
   @override

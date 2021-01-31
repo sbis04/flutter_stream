@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'video_data/data.dart';
+import 'common/data.dart';
 
 class VideoData {
   VideoData({

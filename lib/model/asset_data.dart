@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'asset_data/datum.dart';
+import 'common/data.dart';
 
 class AssetData {
   AssetData({
     this.data,
   });
 
-  List<Datum> data;
+  List<Data> data;
 
   factory AssetData.fromRawJson(String str) =>
       AssetData.fromJson(json.decode(str));
@@ -17,7 +17,7 @@ class AssetData {
   factory AssetData.fromJson(Map<String, dynamic> json) => AssetData(
         data: json["data"] == null
             ? null
-            : List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+            : List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
