@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter_stream/model/video_data/track.dart';
-
-import 'playback_id.dart';
+import 'package:flutter_stream/model/common/playback_id.dart';
+import 'package:flutter_stream/model/common/track.dart';
 
 class Data {
   Data({
