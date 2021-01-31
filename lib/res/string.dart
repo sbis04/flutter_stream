@@ -25,5 +25,5 @@ const authToken = '$accessTokenMUX:$secretTokenMUX';
 const demoVideoUrl =
     'https://storage.googleapis.com/muxdemofiles/mux-video-intro.mp4';
 
-// Specifying plynback policy to public
+// Specifying playback policy to public
 const playbackPolicy = 'public';
