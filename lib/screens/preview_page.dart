@@ -46,6 +46,7 @@ class _PreviewPageState extends State<PreviewPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        brightness: Brightness.dark,
         title: Text('Video preview'),
         backgroundColor: CustomColors.muxPink,
       ),

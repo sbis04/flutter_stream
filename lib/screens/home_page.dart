@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stream/model/asset_data.dart';
-import 'package:flutter_stream/model/video_data.dart';
 import 'package:flutter_stream/res/custom_colors.dart';
 import 'package:flutter_stream/screens/preview_page.dart';
 import 'package:flutter_stream/utils/mux_client.dart';
 import 'package:intl/intl.dart';
-import 'package:video_player/video_player.dart';
 
-import '../res/string.dart';
-import '../res/string.dart';
 import '../res/string.dart';
 
 class HomePage extends StatefulWidget {
@@ -50,6 +46,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
+          brightness: Brightness.dark,
           title: Text('MUX stream'),
           backgroundColor: CustomColors.muxPink,
           actions: [
