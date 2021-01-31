@@ -5,8 +5,6 @@ import 'package:flutter_stream/model/asset_data.dart';
 import 'package:flutter_stream/model/video_data.dart';
 import 'package:flutter_stream/res/string.dart';
 
-import '../res/string.dart';
-
 class MUXClient {
   Dio _dio = Dio();
 
@@ -31,7 +29,7 @@ class MUXClient {
   /// Method for storing a video to MUX, by passing the [videoUrl].
   ///
   /// Returns the `VideoData`.
-  storeVideo({String videoUrl}) async {
+  Future<VideoData> storeVideo({String videoUrl}) async {
     Response response;
 
     try {
@@ -44,6 +42,7 @@ class MUXClient {
       );
     } catch (e) {
       print('Error starting build: $e');
+      throw Exception('Failed to load store video on MUX');
     }
 
     if (response.statusCode == 201) {
@@ -86,6 +85,7 @@ class MUXClient {
       }
     } catch (e) {
       print('Error starting build: $e');
+      throw Exception('Failed to check status');
     }
 
     return null;
@@ -109,6 +109,7 @@ class MUXClient {
       }
     } catch (e) {
       print('Error starting build: $e');
+      throw Exception('Failed to retireve videos from MUX');
     }
 
     return null;
