@@ -171,7 +171,8 @@ class _HomePageState extends State<HomePage> {
                                   setState(() {
                                     isProcessing = true;
                                   });
-                                  await _muxClient.storeVideo();
+                                  await _muxClient.storeVideo(
+                                      videoUrl: _textControllerVideoURL.text);
                                   setState(() {
                                     isProcessing = false;
                                   });
