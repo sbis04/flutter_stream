@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stream/model/common/data.dart';
 
 import 'package:flutter_stream/res/custom_colors.dart';
+import 'package:flutter_stream/widgets/info_tile.dart';
 import 'package:intl/intl.dart';
 import 'package:video_player/video_player.dart';
 
@@ -99,171 +100,39 @@ class _PreviewPageState extends State<PreviewPage> {
             Padding(
               padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0),
               child: Column(
+                mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Asset ID',
-                    style: TextStyle(
-                      color: CustomColors.muxGray,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  InfoTile(
+                    name: 'Asset ID',
+                    data: assetData.id,
                   ),
-                  SizedBox(height: 4.0),
-                  Text(
-                    assetData.id,
-                    style: TextStyle(
-                      color: CustomColors.muxGray.withOpacity(0.6),
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400,
-                    ),
+                  InfoTile(
+                    name: 'Created',
+                    data: dateTimeString,
                   ),
-                  SizedBox(height: 8.0),
-                  Container(
-                    color: CustomColors.muxGray.withOpacity(0.1),
-                    width: double.maxFinite,
-                    height: 1,
+                  InfoTile(
+                    name: 'Status',
+                    data: assetData.status,
                   ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Created',
-                    style: TextStyle(
-                      color: CustomColors.muxGray,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  InfoTile(
+                    name: 'Duration',
+                    data: '${assetData.duration.toStringAsFixed(2)} seconds',
                   ),
-                  SizedBox(height: 4.0),
-                  Text(
-                    dateTimeString,
-                    style: TextStyle(
-                      color: CustomColors.muxGray.withOpacity(0.6),
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400,
-                    ),
+                  InfoTile(
+                    name: 'Max Resolution',
+                    data: assetData.maxStoredResolution,
+                  ),
+                  InfoTile(
+                    name: 'Max Frame Rate',
+                    data: assetData.maxStoredFrameRate.toString(),
+                  ),
+                  InfoTile(
+                    name: 'Aspect Ratio',
+                    data: assetData.aspectRatio,
                   ),
                   SizedBox(height: 8.0),
-                  Container(
-                    color: CustomColors.muxGray.withOpacity(0.1),
-                    width: double.maxFinite,
-                    height: 1,
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Status',
-                    style: TextStyle(
-                      color: CustomColors.muxGray,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(height: 4.0),
-                  Text(
-                    assetData.status,
-                    style: TextStyle(
-                      color: CustomColors.muxGray.withOpacity(0.6),
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  Container(
-                    color: CustomColors.muxGray.withOpacity(0.1),
-                    width: double.maxFinite,
-                    height: 1,
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Duration',
-                    style: TextStyle(
-                      color: CustomColors.muxGray,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(height: 4.0),
-                  Text(
-                    '${assetData.duration.toStringAsFixed(2)} seconds',
-                    style: TextStyle(
-                      color: CustomColors.muxGray.withOpacity(0.6),
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  Container(
-                    color: CustomColors.muxGray.withOpacity(0.1),
-                    width: double.maxFinite,
-                    height: 1,
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Max Resolution',
-                    style: TextStyle(
-                      color: CustomColors.muxGray,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(height: 4.0),
-                  Text(
-                    assetData.maxStoredResolution,
-                    style: TextStyle(
-                      color: CustomColors.muxGray.withOpacity(0.6),
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  Container(
-                    color: CustomColors.muxGray.withOpacity(0.1),
-                    width: double.maxFinite,
-                    height: 1,
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Max Frame Rate',
-                    style: TextStyle(
-                      color: CustomColors.muxGray,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(height: 4.0),
-                  Text(
-                    assetData.maxStoredFrameRate.toString(),
-                    style: TextStyle(
-                      color: CustomColors.muxGray.withOpacity(0.6),
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  Container(
-                    color: CustomColors.muxGray.withOpacity(0.1),
-                    width: double.maxFinite,
-                    height: 1,
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Aspect Ratio',
-                    style: TextStyle(
-                      color: CustomColors.muxGray,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(height: 4.0),
-                  Text(
-                    assetData.aspectRatio,
-                    style: TextStyle(
-                      color: CustomColors.muxGray.withOpacity(0.6),
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  SizedBox(height: 16.0),
                 ],
               ),
             )
