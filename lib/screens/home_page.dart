@@ -14,11 +14,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   MUXClient _muxClient = MUXClient();
-  // VideoPlayerController _controller;
 
   TextEditingController _textControllerVideoURL;
   FocusNode _textFocusNodeVideoURL;
-
   bool isProcessing = false;
 
   @override
