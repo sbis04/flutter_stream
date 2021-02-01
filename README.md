@@ -4,6 +4,40 @@ A sample Flutter project for demonstrating how to integrate video streaming serv
 
 ![](https://github.com/sbis04/flutter_stream/raw/master/screenshots/fluter_mux_cover.png)
 
+# Usage
+
+If you want to try this sample app, follow the steps mentioned below:
+
+* Clone this GitHub repository
+  
+  ```bash
+  https://github.com/sbis04/flutter_stream.git
+  ```
+
+* Get packages
+  
+  ```bash
+  flutter pub get
+  ```
+
+* Create a file called `secrets.dart` inside the `lib` folder, add the following in it
+  
+  ```dart
+  const accessTokenMUX = '<token_id>';
+  const secretTokenMUX = '<token_secret>';
+  ```
+
+* Generate **MUX API Access Token** from [here](https://dashboard.mux.com/settings/access-tokens) (if you don't have a MUX account, create one by going [here](https://dashboard.mux.com/signup))
+
+* This will generate a **Token ID** and **Token Secret**, add them to the `secrets.dart` file
+
+Now, you are ready to run this app on your device, just use the this command:
+
+```bash
+cd flutter_stream
+fluter run
+```
+
 # Plugins
 
 The plugins that are used in this app are as follows:
