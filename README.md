@@ -4,6 +4,14 @@ A sample Flutter project for demonstrating how to integrate video streaming serv
 
 ![](https://github.com/sbis04/flutter_stream/raw/master/screenshots/fluter_mux_cover.png)
 
+# Plugins
+
+The plugins that are used in this app are as follows:
+
+* [dio](https://pub.dev/packages/dio) - for making HTTP POST and GET requests
+* [video_player](https://pub.dev/packages/video_player) - for previewing the video to be streamed
+* [intl](https://pub.dev/packages/intl) - to format `DateTime` objects
+
 # License
 
 Copyright (c) 2021 Souvik Biswas
