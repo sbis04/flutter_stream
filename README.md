@@ -48,6 +48,10 @@ The plugins that are used in this app are as follows:
 * [video_player](https://pub.dev/packages/video_player) - for previewing the video to be streamed
 * [intl](https://pub.dev/packages/intl) - to format `DateTime` objects
 
+# Testing
+
+Used the plugin [http_mock_adapter](https://pub.dev/packages/http_mock_adapter) for writing a few API mocking tests in Dart.
+
 # License
 
 Copyright (c) 2021 Souvik Biswas
