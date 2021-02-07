@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const bodyParser = require("body-parser");
 const Mux = require("@mux/mux-node");
 const { Video } = new Mux(
   process.env.MUX_TOKEN_ID,
@@ -8,46 +9,60 @@ const { Video } = new Mux(
 const app = express();
 const port = 3000;
 
-app.post("/assets", async (req, res) => {
+var jsonParser = bodyParser.json();
+
+app.post("/assets", jsonParser, async (req, res) => {
+  console.log("BODY: " + req.body.videoUrl);
+
   const asset = await Video.Assets.create({
     input: req.body.videoUrl,
     playback_policy: "public",
   });
 
   res.json({
-    id: asset.id,
-    status: asset.status,
-    playback_ids: asset.playback_ids,
-    created_at: asset.created_at,
+    data: {
+      id: asset.id,
+      status: asset.status,
+      playback_ids: asset.playback_ids,
+      created_at: asset.created_at,
+    },
   });
 });
 
 app.get("/assets", async (req, res) => {
   const assets = await Video.Assets.list();
 
-  res.json(
-    assets.map((asset) => ({
+  res.json({
+    data: assets.map((asset) => ({
       id: asset.id,
       status: asset.status,
       playback_ids: asset.playback_ids,
       created_at: asset.created_at,
       duration: asset.duration,
-    }))
-  );
+      max_stored_resolution: asset.max_stored_resolution,
+      max_stored_frame_rate: asset.max_stored_frame_rate,
+      aspect_ratio: asset.aspect_ratio,
+    })),
+  });
 });
 
 app.get("/asset", async (req, res) => {
-  const asset = await Video.Assets.get(updatedUpload[req.body.id]);
+  let videoId = req.query.videoId;
+  const asset = await Video.Assets.get(videoId);
+
+  console.log(asset);
 
   res.json({
-    id: asset.id,
-    status: asset.status,
-    playback_ids: asset.playback_ids,
-    created_at: asset.created_at,
-    duration: asset.duration,
-    max_resolution: asset.max_stored_resolution,
-    max_frame_rate: asset.max_stored_frame_rate,
-    aspect_ratio: asset.aspect_ratio,
+    data: {
+      id: asset.id,
+      status: asset.status,
+      playback_ids: asset.playback_ids,
+      created_at: asset.created_at,
+      duration: asset.duration,
+      max_stored_resolution: asset.max_stored_resolution,
+      max_stored_frame_rate: asset.max_stored_frame_rate,
+      aspect_ratio: asset.aspect_ratio,
+    },
   });
 });
 
