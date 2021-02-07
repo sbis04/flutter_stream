@@ -42,3 +42,4 @@ app.*.map.json
 
 # exclude the secret file
 lib/secrets.dart
+.vscode/launch.json
