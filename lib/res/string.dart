@@ -3,6 +3,9 @@ import 'package:flutter_stream/secrets.dart';
 // API for sending videos
 const muxBaseUrl = 'https://api.mux.com';
 
+// API server running on localhost
+const muxServerUrl = 'http://localhost:3000';
+
 // API for generating thumbnails of a video
 const muxImageBaseUrl = 'https://image.mux.com';
 
@@ -22,8 +25,7 @@ const contentType = 'application/json';
 const authToken = '$accessTokenMUX:$secretTokenMUX';
 
 // Test video url provided by MUX
-const demoVideoUrl =
-    'https://storage.googleapis.com/muxdemofiles/mux-video-intro.mp4';
+const demoVideoUrl = 'https://storage.googleapis.com/muxdemofiles/mux-video-intro.mp4';
 
 // Specifying playback policy to public
 const playbackPolicy = 'public';
