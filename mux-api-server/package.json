@@ -1,0 +1,22 @@
+{
+  "name": "mux_api_server",
+  "version": "1.0.0",
+  "description": "MUX API server",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "keywords": [
+    "Video API",
+    "javascript",
+    "mux"
+  ],
+  "author": "Souvik Biswas",
+  "license": "MIT",
+  "dependencies": {
+    "@mux/mux-node": "^3.1.3",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  }
+}

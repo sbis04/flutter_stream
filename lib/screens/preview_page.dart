@@ -29,13 +29,11 @@ class _PreviewPageState extends State<PreviewPage> {
     assetData = widget.assetData;
     String playbackId = assetData.playbackIds[0].id;
 
-    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(
-        int.parse(assetData.createdAt) * 1000);
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(int.parse(assetData.createdAt) * 1000);
     DateFormat formatter = DateFormat.yMd().add_jm();
     dateTimeString = formatter.format(dateTime);
 
-    _controller = VideoPlayerController.network(
-        '$muxStreamBaseUrl/$playbackId.$videoExtension')
+    _controller = VideoPlayerController.network('$muxStreamBaseUrl/$playbackId.$videoExtension')
       ..initialize().then((_) {
         setState(() {});
       });
