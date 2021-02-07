@@ -8,19 +8,15 @@ import 'package:flutter_stream/res/string.dart';
 class MUXClient {
   Dio _dio = Dio();
 
-  /// Method for configuring Dio, and passing the proper token
-  /// for authorization
+  /// Method for configuring Dio, the authorization is done from
+  /// the API server
   initializeDio() {
-    // authToken format: {MUX_TOKEN_ID}:{MUX_TOKEN_SECRET}
-    String basicAuth = 'Basic ' + base64Encode(utf8.encode('$authToken'));
-
     BaseOptions options = BaseOptions(
-      baseUrl: muxBaseUrl, // https://api.mux.com
+      baseUrl: muxServerUrl,
       connectTimeout: 8000,
       receiveTimeout: 5000,
       headers: {
         "Content-Type": contentType, // application/json
-        "authorization": basicAuth,
       },
     );
     _dio = Dio(options);
@@ -34,23 +30,20 @@ class MUXClient {
 
     try {
       response = await _dio.post(
-        "/video/v1/assets",
+        "/assets",
         data: {
-          "input": videoUrl,
-          "playback_policy": playbackPolicy,
+          "videoUrl": videoUrl,
         },
       );
     } catch (e) {
       print('Error starting build: $e');
-      throw Exception('Failed to load store video on MUX');
+      throw Exception('Failed to store video on MUX');
     }
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       VideoData videoData = VideoData.fromJson(response.data);
 
       String status = videoData.data.status;
-
-      print(status);
 
       while (status == 'preparing') {
         print('check');
@@ -73,10 +66,11 @@ class MUXClient {
   Future<VideoData> checkPostStatus({String videoId}) async {
     try {
       Response response = await _dio.get(
-        "/video/v1/assets/$videoId",
+        "/asset",
+        queryParameters: {
+          'videoId': videoId,
+        },
       );
-
-      print(response.data);
 
       if (response.statusCode == 200) {
         VideoData videoData = VideoData.fromJson(response.data);
@@ -97,10 +91,8 @@ class MUXClient {
   Future<AssetData> getAssetList() async {
     try {
       Response response = await _dio.get(
-        "/video/v1/assets",
+        "/assets",
       );
-
-      print(response.data);
 
       if (response.statusCode == 200) {
         AssetData assetData = AssetData.fromJson(response.data);
