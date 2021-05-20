@@ -2,7 +2,7 @@
 
 A sample Flutter project for demonstrating how to integrate video streaming service with the help of [MUX](https://mux.com).
 
-> Article coming out soon
+> To get step-by-step information on how to build this app, check out the article "[**Integrating video streaming with Flutter using Mux**](https://medium.com/flutter-community/integrating-video-streaming-with-flutter-using-mux-5ba707cca847)"
 
 ![](https://github.com/sbis04/flutter_stream/raw/master/screenshots/fluter_mux_cover.png)
 
